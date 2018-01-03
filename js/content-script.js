@@ -1,5 +1,5 @@
 
 $(function() {
-  alert('aqui');
+  alert('Hello World!');
 });
 
