@@ -39,10 +39,12 @@
       "css": [
         "css/animate.css",
         "css/roboto.css",
-        "css/content-script.css"
+        "css/content-script.css",
+        "css/jquery-confirm.css"
       ],
       "js": [
         "lib/jquery-3.2.1.min.js",
+        "lib/jquery-confirm.js",
         "lib/moment.min.js",
         "js/content-script.js"
       ],

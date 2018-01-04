@@ -1,7 +1,10 @@
 .icon-ripple {
-  background: url('chrome-extension://bcbkjibjlaicfakfamgpinlidhmhalch/icons/coin_xrp_128.png') no-repeat center center;
-  background-size: 64px;
-  width: 64px;
-  height:64px;
+  background: url('chrome-extension://anljgkdcmifbpbghbdeengolainjnhdh/icons/coin_xrp_128.png') no-repeat center center;
+  background-size: 32px;
+  width: 32px;
+  height:32px;
   display: block;
+}
+.account-balance span {
+  cursor: pointer;
 }
