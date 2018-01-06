@@ -28,4 +28,5 @@
   float: right;
   margin: 2px;
   padding: 0;
+  transition: 0.2s ease;
 }

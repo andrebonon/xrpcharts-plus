@@ -19,6 +19,7 @@ $(function() {
       var $accountBalance = $('<td class="account-balance"></td>');
 
       for (var j = 0; j < title.length; j++) {
+        // Create colors.
         if (typeof colors[title[j]] === 'undefined') {
           var x = Math.round(0xffffff * Math.random()).toString(16);
           var y = (6 - x.length);
@@ -27,11 +28,25 @@ $(function() {
           colors[title[j]] = '#' + z1 + x;
         }
 
-        $('<div class="user-color" title="'+ title[j] +'">')
+        // Create pins.
+        $('<div class="user-color ' + title[j] + '" title="'+ title[j] +'">')
           .css({'background-color': colors[title[j]]})
           .on('click', function() {
             var title = $(this).attr('title');
             getBalance(title);
+          })
+          .mouseenter(function() {
+            var hash = $(this).attr('title');
+            var $pin = $('.user-color').not('.' + hash);
+            $pin.css({'filter': 'opacity(40%)'});
+
+            $('.user-color.' + hash).parent().parent().css({'border-right': '1px solid #fff'});
+          })
+          .mouseleave(function() {
+            var hash = $(this).attr('title');
+            var $pin = $('.user-color').not('.' + hash);
+            $pin.css({'filter': 'none'});
+            $('.user-color.' + hash).parent().parent().css({'border': '0px'});
           })
           .appendTo($accountBalance);
       }
