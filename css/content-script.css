@@ -1,5 +1,5 @@
 .icon-ripple {
-  background: url('chrome-extension://anljgkdcmifbpbghbdeengolainjnhdh/icons/coin_xrp_128.png') no-repeat center center;
+  background: url('chrome-extension://__MSG_@@extension_id__/icons/coin_xrp_128.png') no-repeat center center;
   background-size: 32px;
   width: 32px;
   height:32px;
@@ -7,4 +7,25 @@
 }
 .account-balance span {
   cursor: pointer;
+}
+
+.jconfirm-title a,
+.jconfirm-title a:hover {
+  text-decoration: none;
+}
+.jconfirm-title a {
+  color: #0094CC;
+}
+.jconfirm-title a:hover {
+  color: #0090C9;
+}
+
+.user-color {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  float: right;
+  margin: 2px;
+  padding: 0;
 }
