@@ -1,5 +1,6 @@
 var rippleDomain = 'https://data.ripple.com/';
 var accountBalanceEnd = 'v2/accounts/hash/balances';
+
 $(function() {
 
   setTimeout(insertInfoButton, 6000, '.asksTable');
@@ -7,10 +8,10 @@ $(function() {
 
   function insertInfoButton(tableClass) {
     $('thead tr:first th', tableClass).attr('colspan', '4');
-    $('.headerRow', tableClass).append('<th>Account balance</th>');
+    $('.headerRow', tableClass).append('<th class="moreinfo">More <span>info</span></th>');
 
     $('tbody tr', tableClass).each(function(i, obj) {
-      $('<td class="account-balance"><span>[+info]</span></td>')
+      $('<td class="account-balance"><span>[+]</span></td>')
       .on('click', function() {
         var title = $(this).parent().attr('title');
         getBalance(title);
