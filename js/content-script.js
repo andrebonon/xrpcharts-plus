@@ -1,62 +1,101 @@
-var rippleDomain = 'https://data.ripple.com/';
-var accountBalanceEnd = 'v2/accounts/hash/balances';
+var RIPPLE_DOMAIN = 'https://data.ripple.com/',
+    BALANCES_ENDPOINT = 'v2/accounts/accountHash/balances';
 
 var colors = [];
 
-$(function() {
+var XRPChartsPins = {
+  init: function() {
+    var that = this;
+    this.insertMoreInfoHeaders();
 
-  setTimeout(insertInfoButton, 8000, '.asksTable');
-  setTimeout(insertInfoButton, 8000, '.bidsTable');
+    var $tableTR = $('#bookTables table tbody tr');
+    var $objTD = $('<td class="account-balance"></td>');
+    $objTD.appendTo($tableTR);
 
-  function insertInfoButton(tableClass) {
-    $('thead tr:first th', tableClass).attr('colspan', '4');
-    $('.headerRow', tableClass).append('<th class="moreinfo">More <span>info</span></th>');
+    this.buildPins($tableTR);
+    setInterval(function() { that.buildPins($tableTR); }, 500);
+  },
 
-    $('tbody tr', tableClass).each(function(i, obj) {
-      var title = $(obj).attr('title');
+  buildPins: function($tableTR) {
+    var that = this;
+    $tableTR.each(function(i, objTR) {
+      var $objTR = $(this);
+      var accountHash = $objTR.attr('title').split('\n');
+      var $trTD = $('td.account-balance', $objTR);
+      $trTD.html('');
+      $objTR.css({
+        'border': '0px'
+      });
+      that.getMoreInfoCell(accountHash, $trTD);
+    });
+  },
 
-      title = title.split('\n');
-      var $accountBalance = $('<td class="account-balance"></td>');
+  insertMoreInfoHeaders: function() {
+    $('.bidsTable thead tr:first th', '#bookTables').attr('colspan', '4');
+    $('.asksTable thead tr:first th', '#bookTables').attr('colspan', '4');
+    $('.headerRow', '#bookTables').append('<th class="moreinfo">More <span>info</span></th>');
+  },
 
-      for (var j = 0; j < title.length; j++) {
-        // Create colors.
-        if (typeof colors[title[j]] === 'undefined') {
-          var x = Math.round(0xffffff * Math.random()).toString(16);
-          var y = (6 - x.length);
-          var z = '000000';
-          var z1 = z.substring(0,y);
-          colors[title[j]] = '#' + z1 + x;
-        }
-
-        // Create pins.
-        $('<div class="user-color ' + title[j] + '" title="'+ title[j] +'">')
-          .css({'background-color': colors[title[j]]})
-          .on('click', function() {
-            var title = $(this).attr('title');
-            getBalance(title);
-          })
-          .mouseenter(function() {
-            var hash = $(this).attr('title');
-            var $pin = $('.user-color').not('.' + hash);
-            $pin.css({'filter': 'opacity(40%)'});
-
-            $('.user-color.' + hash).parent().parent().css({'border-right': '1px solid #fff'});
-          })
-          .mouseleave(function() {
-            var hash = $(this).attr('title');
-            var $pin = $('.user-color').not('.' + hash);
-            $pin.css({'filter': 'none'});
-            $('.user-color.' + hash).parent().parent().css({'border': '0px'});
-          })
-          .appendTo($accountBalance);
+  getMoreInfoCell: function(accountHash, $objTD) {
+    for (var j = 0; j < accountHash.length; j++) {
+      // Get colors.
+      if (typeof colors[accountHash[j]] === 'undefined') {
+        colors[accountHash[j]] = this.getHexColor();
       }
 
-      $accountBalance.appendTo(obj);
-    });
-  }
+      // Create pins.
+      var $pinCircle = this.getPinCircle(accountHash[j]);
+      $pinCircle.appendTo($objTD);
+    }
+  },
 
-  function getBalance(title) {
-    var url = rippleDomain + accountBalanceEnd.replace('hash', title);
+  getHexColor: function() {
+    var num = Math.round(0xffffff * Math.random()).toString(16);
+    var diff = (6 - num.length);
+    var format = '000000';
+    var hexa = format.substring(0,diff);
+
+    return '#' + hexa + num;
+  },
+
+  getPinCircle: function(accountHash) {
+    var that = this;
+    var $userPin = $('<div class="user-pin ' + accountHash + '" title="'+ accountHash +'">');
+
+    $userPin
+      .css({
+        'background-color': colors[accountHash]
+      })
+      .on('click', function() {
+        var accountHash = $(this).attr('title');
+        that.getBalance(accountHash);
+      })
+      .mouseenter(function() {
+        var $pins = $('.user-pin.' + accountHash);
+
+        $pins.addClass('focused');
+
+        $tr = $('.user-pin.' + accountHash).parent().parent();
+        $tr.css({
+          'border-right': '1px solid #fff'
+        });
+      })
+      .mouseleave(function() {
+        var $pins = $('.user-pin.' + accountHash);
+
+        $pins.removeClass('focused');
+
+        $tr = $('.user-pin.' + accountHash).parent().parent();
+        $tr.css({
+          'border': '0px'
+        });
+      });
+
+    return $userPin;
+  },
+
+  getBalance: function(accountHash) {
+    var url = RIPPLE_DOMAIN + BALANCES_ENDPOINT.replace('accountHash', accountHash);
     $.get(url, {}, function(data, textStatus, jqXHR) {
       var balances = '';
 
@@ -79,6 +118,63 @@ $(function() {
         icon: 'icon-ripple',
       });
     });
-  }
-});
+  },
+};
 
+// Document Ready.
+$(function() {
+
+  var bidsTable = false;
+  var asksTable = false;
+  var displayTable = false;
+  var observer = new MutationObserver(function(mutations) {
+    // For the sake of...observation...let's listen the mutation and
+    // stop it when we find the asksTable and bidsTable
+    try {
+      mutations.forEach(function(mutation) {
+        if (bidsTable && asksTable && displayTable) {
+          throw "loaded";
+        }
+
+        if (mutation.target.id !== 'bookTables') {
+          return;
+        }
+
+        if (typeof mutation.target.attributes.style !== 'undefined' && mutation.target.attributes.style.value == 'opacity: 1;') {
+          console.log(mutation.target.attributes);
+          displayTable = true;
+        }
+
+        if (typeof mutation.addedNodes[0] === 'undefined') {
+          return;
+        }
+
+        if (mutation.addedNodes[0].className == 'bidsTable') {
+          bidsTable = true;
+        }
+
+        if (mutation.addedNodes[0].className == 'asksTable') {
+          asksTable = true;
+        }
+      });
+    }
+    // Where the magic begins.
+    catch(err) {
+      observer.disconnect();
+      XRPChartsPins.init();
+    }
+  });
+
+  // Notify me of everything!
+  var observerConfig = {
+    attributes: true,
+    childList: true,
+    characterData: true,
+    subtree: true,
+  };
+
+  // Node, config
+  // We'll listen to all changes to body and child nodes
+  var targetNode = document.body;
+  observer.observe(targetNode, observerConfig);
+});
