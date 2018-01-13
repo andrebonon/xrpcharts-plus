@@ -13,8 +13,8 @@ This extension brings more information from the official [Ripple Data API](https
 + Identifies the orders with colors
 + Access to the balances
 
-+ Future features:
-+ + Alerts
+Future features:
++ Alerts
 
 ## Donation
 

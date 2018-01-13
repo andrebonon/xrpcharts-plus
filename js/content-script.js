@@ -123,7 +123,7 @@ var XRPChartsPins = {
         buttons: {
           beer: {
             btnClass: 'btn-blue',
-            text:'Buy me a Beer =)',
+            text:'Donate =)',
             action: function() {
               var $temp = $('<input>');
               $('body').append($temp);
@@ -180,7 +180,9 @@ $(function() {
     // Where the magic begins.
     catch(err) {
       observer.disconnect();
-      XRPChartsPins.init();
+      setTimeout(function() {
+        XRPChartsPins.init();
+      }, 500);
     }
   });
 
