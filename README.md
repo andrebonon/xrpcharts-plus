@@ -1,8 +1,8 @@
-# XRPCharts+ Chrome Extension
+# XRPCharts+
 
 ## What is this?
 
-[XRPCharts+ Chrome Extension](https://chrome.google.com/webstore/detail/xrpcharts-plus/) (Link to Chrome Webstore)
+[XRPCharts+](https://chrome.google.com/webstore/detail/xrpcharts-plus/) (Link to Chrome Webstore)
 
 Additional information helps in develop better strategies for day trading.
 
@@ -14,7 +14,7 @@ This extension brings more information from the official [Ripple Data API](https
 + Access to the balances
 
 + Future features:
-++ Alerts
++ + Alerts
 
 ## Donation
 
@@ -22,4 +22,4 @@ How do you like it? I hope your encouragement:
 
 `rEragc9BrrDjtCAoHYvCULYSbQx3gkiXxW`
 
-Probably, I'll drink some beers...
+Probably, I'll drink some beers... =)
