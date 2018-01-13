@@ -1,5 +1,6 @@
 var RIPPLE_DOMAIN = 'https://data.ripple.com/',
     BALANCES_ENDPOINT = 'v2/accounts/accountHash/balances';
+    DONATE_HASH = 'rEragc9BrrDjtCAoHYvCULYSbQx3gkiXxW';
 
 var colors = [];
 
@@ -107,15 +108,34 @@ var XRPChartsPins = {
       }
 
       var dialogTitle = (this.url).split('/')[5];
-      $.dialog({
-        title: '<a href="https://bithomp.com/explorer/' + dialogTitle + '" target="_blank">' + dialogTitle + '</a>',
+      $.confirm({
+        title: 'Account Balance',
         columnClass: 'col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3',
         theme: 'dark',
-        content: '<div class="balance">' + balances + '</div>',
+        content: '<div class="account-title"><a href="https://bithomp.com/explorer/' + dialogTitle + '" target="_blank">' + dialogTitle + '</a></div><div class="balance">' + balances + '</div>',
         draggable: true,
         dragWindowBorder: false,
         aimation: 'zoom',
         icon: 'icon-ripple',
+        closeIcon: true,
+        type: 'blue',
+        typeAnimated: true,
+        buttons: {
+          beer: {
+            btnClass: 'btn-blue',
+            text:'Buy me a Beer =)',
+            action: function() {
+              var $temp = $('<input>');
+              $('body').append($temp);
+              $temp.val(DONATE_HASH).select();
+              document.execCommand('copy');
+              $temp.remove();
+
+              $.alert('How do you like it? I hope your encouragement.<br /><br /><strong>' + DONATE_HASH + '</strong> <br /> Copied!');
+              return false;
+            }
+          },
+        }
       });
     });
   },
@@ -141,7 +161,6 @@ $(function() {
         }
 
         if (typeof mutation.target.attributes.style !== 'undefined' && mutation.target.attributes.style.value == 'opacity: 1;') {
-          console.log(mutation.target.attributes);
           displayTable = true;
         }
 
