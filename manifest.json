@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "XRPCharts+",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds functionalities to the https://xrpcharts.ripple.com/.",
   "default_locale": "en",
   "icons":{
