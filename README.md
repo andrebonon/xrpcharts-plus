@@ -1,4 +1,4 @@
-# XRPCharts+
+# XRPCharts+ (beta)
 
 ## What is this?
 
