@@ -16,6 +16,12 @@ This extension brings more information from the official [Ripple Data API](https
 Future features:
 + Alerts
 
+## Credits
+
+[mcamargo](https://github.com/mcamargo)
+
+[fealexandre](https://github.com/fealexandre)
+
 ## Donation
 
 How do you like it? I hope your encouragement:
