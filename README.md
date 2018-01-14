@@ -2,11 +2,11 @@
 
 ## What is this?
 
-[XRPCharts+](https://chrome.google.com/webstore/detail/xrpcharts-plus/) (Link to Chrome Webstore)
+[XRPCharts+](https://chrome.google.com/webstore/detail/xrpcharts%20/fhhiiblbddjepllmfpohbmjhjnbjnmoa?hl=en-US) (Link to Chrome Webstore)
 
 Additional information helps in develop better strategies for day trading.
 
-This extension brings more information from the official [Ripple Data API](https://ripple.com/build/data-api-v2/) to complement the [book table on ripple live chart page](https://xrpcharts.ripple.com/#/markets/).
+This extension brings more information from the official [Ripple Data API](https://ripple.com/build/data-api-v2/) to complement the [book table on ripple live chart page](https://xrpcharts.ripple.com/#/markets/XRP/USD:rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B?interval=15m&range=3d&type=line).
 
 ## Main features
 
