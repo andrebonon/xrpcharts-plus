@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "XRPCharts+",
-  "version": "1.0.1",
-  "description": "Adds functionalities to the https://xrpcharts.ripple.com/.",
+  "version": "1.0.3",
+  "description": "This extension gets additional information from the official ripple database and adds it to the xrpcharts page.",
   "default_locale": "en",
   "icons":{
     "48": "icons/coin_xrp_48.png",
